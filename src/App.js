@@ -13,21 +13,29 @@ function App() {
   const [type, setType] = useState("image");
   const [images, setImages] = useState([]);
 
+  const [isLoading,setLoading] = useState(false);
+
   const handleTypeChange = (val) => {
     setType(val)
   }
 
   const handleFetch = (bodyData) => {
     if (type === 'image') {
-      const chatGPTAPIKEY = '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';
-      fetchImagesFromDALLE(bodyData.prompt, chatGPTAPIKEY, 4).then(setImages)
+      setLoading(true)
+      fetchImagesFromDALLE(bodyData.prompt, bodyData.apiKey, 2)
+      .then(resp=>{
+        setLoading(false)
+        setImages(resp)
+      })
     }
   }
 
   return (
     <main className="main-container">
       <Header type={type} onTypeChange={handleTypeChange} onFetch={handleFetch} />
-      {type === "image" ?
+      { isLoading ?
+        <>Loading</>
+      :type === "image" ?
         <ImageList images={images} />
         :
         <Suggestion />}
