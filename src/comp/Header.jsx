@@ -27,7 +27,7 @@ const Header = ({ type, onTypeChange, onFetch }) => {
                 <Switch value={type !== "image"} onChange={handleTypeChange} />
             </div>
             <div className="api__container" >
-                <span>ChatGPT :</span>
+                <span>API Key :</span>
                 <input className="search__input" placeholder="Enter API key" value={apiKey} onChange={handleApiChange} />
             </div>
 
