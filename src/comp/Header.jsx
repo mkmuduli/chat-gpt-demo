@@ -28,7 +28,7 @@ const Header = ({ type, onTypeChange, onFetch }) => {
             </div>
             <div className="api__container" >
                 <span>API Key :</span>
-                <input className="search__input" placeholder="Enter API key" value={apiKey} onChange={handleApiChange} />
+                <input className="search__input" type="password" placeholder="Enter API key" value={apiKey} onChange={handleApiChange} />
             </div>
 
         </section>
