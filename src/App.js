@@ -25,7 +25,7 @@ function App() {
     if(isLoading) return;
     if (type === 'image') {
       setLoading(true)
-      fetchImagesFromDALLE(bodyData.prompt, bodyData.apiKey, 6)
+      fetchImagesFromDALLE(bodyData.prompt, bodyData.apiKey, 2)
       .then(resp=>{
         setLoading(false)
         setImages(resp)
