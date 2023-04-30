@@ -15,6 +15,7 @@ const Header = ({ type, onTypeChange, onFetch }) => {
     }
 
     const handleFetchClick = () => {
+        if(!apiKey || !prompt) alert("pls provide apiKey and prompt")
         onFetch({ apiKey, prompt })
     }
 

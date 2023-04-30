@@ -1,15 +1,13 @@
 
 
-const ImageList = () => {
+const ImageList = ({ images }) => {
 
     return (
-        <div className="image__container two-column" >
-            <img src="https://picsum.photos/200/300" alt="test" />
-            <img src="https://picsum.photos/300/200" alt="test" />
-            <img src="https://picsum.photos/300/200" alt="test" />
-            <img src="https://picsum.photos/200/300" alt="test" />
-            <img src="https://picsum.photos/300/200" alt="test" />
-            <img src="https://picsum.photos/300/200" alt="test" />
+        <div className={`image__container ${images.length > 1 ? 'two-column' : ''}`} >
+            {images.map((eachImage,idx) => {
+                return <img key={idx} src={eachImage.url} alt="test" />
+
+            })}
         </div>
     )
 }
