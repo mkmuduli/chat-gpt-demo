@@ -11,43 +11,60 @@ import { getSuggestions } from './utils/chatComplition';
 
 function App() {
 
-  const [type, setType] = useState("image");
+  const [type, setType] = useState("suggestion");
   const [images, setImages] = useState([]);
   const [text, setText] = useState('');
 
-  const [isLoading,setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const handleTypeChange = (val) => {
+    if (val === "image") setText(''); else setImages([]);
     setType(val)
   }
 
   const handleFetch = (bodyData) => {
-    if(isLoading) return;
+    if (isLoading) return;
     if (type === 'image') {
       setLoading(true)
-      fetchImagesFromDALLE(bodyData.prompt, bodyData.apiKey, 2)
-      .then(resp=>{
-        setLoading(false)
-        setImages(resp)
-      })
-    }else{
+      fetchImagesFromDALLE(bodyData.prompt, bodyData.apiKey, 4)
+        .then(resp => {
+          setLoading(false)
+          setImages(resp)
+        })
+        .catch((err) => {
+          alert(err.message)
+          setLoading(false)
+        })
+    } else {
       setLoading(true)
-      getSuggestions(bodyData.prompt,bodyData.apiKey,1).then(resp=>{        
-        setLoading(false)
-        setText(resp[0].message.content)
-      })
+      getSuggestions(bodyData.prompt, bodyData.apiKey, 1)
+        .then(resp => {
+          setLoading(false)
+          setText(resp[0].message.content)
+        })
+        .catch((err) => {
+          alert(err.message)
+          setLoading(false)
+        })
     }
   }
 
   return (
     <main className="main-container">
       <Header type={type} onTypeChange={handleTypeChange} onFetch={handleFetch} />
-      { isLoading ?
-        <>Loading</>
-      :type === "image" ?
-        <ImageList images={images} />
-        :
-        <Suggestion value={text} />}
+      {isLoading ?
+        <div className={`no-item container-tool ${type !== "image" ? 'no-item-sug' : ''}`}>
+          <div class="loader"/>
+          </div>
+        : !images.length && !text ?
+          <div className={`no-item container-tool ${type !== "image" ? 'no-item-sug' : ''}`}  >
+            Enter Prompt and API key
+            then Click on Fetch get Result
+          </div>
+          : type === "image" ?
+            <ImageList images={images} />
+            :
+            <Suggestion value={text} />}
     </main>
   );
 }

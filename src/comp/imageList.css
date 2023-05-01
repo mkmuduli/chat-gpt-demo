@@ -2,17 +2,22 @@
     margin-top: 20px;
     flex: 1;
     width: 100%;
-    min-width: 300px;
-    max-width: 700px;
+    min-width: 320px;
+    max-width: 800px;
     display: grid;
-    grid-template-columns: minmax(auto, 350px);
-    grid-auto-rows: minmax(auto, 250px);
+    grid-template-columns: minmax(auto, 400px);
+    grid-auto-rows: minmax(auto, 400px);
     gap: 10px;
     justify-content: center;
+    overflow-y: scroll;
+}
+
+.image__container::-webkit-scrollbar {
+    display: none;
 }
 
 .two-column {
-    grid-template-columns: repeat(2, minmax(auto, 350px));
+    grid-template-columns: repeat(2, minmax(auto, 400px));
 }
 
 

@@ -99,7 +99,8 @@ export const fetchImagesFromDALLE = async (prompt, apiKey, numImage = 1) => {
     )
 
     if (!response.ok) {
-        throw new Error(`Non-200 response: ${await response.text()}`)
+        const {error} = await response.json()
+        throw(error)
     }
 
 

@@ -23,6 +23,11 @@ export const getSuggestions = async (prompt, apiKey, count = 1) => {
         })
     });
 
+    if (!response.ok) {
+        const {error} = await response.json()
+        throw(error)
+    }
+
     const {choices} = await response.json()
 
    return choices
